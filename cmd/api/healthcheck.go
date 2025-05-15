@@ -7,9 +7,14 @@ import (
 )
 
 func (app *application) healthHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status":      "available",
-		"environment": app.config.env,
-		"version":     version,
-	})
+	data := envolope{
+		"status": "available",
+		"system_info": map[string]string{
+			"status":      "available",
+			"environment": app.config.env,
+			"version":     version,
+		},
+	}
+
+	c.JSON(http.StatusOK, data)
 }
